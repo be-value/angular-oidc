@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using AuthorizationService.Quickstart;
+using IdentityServer4;
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 
 namespace AuthorizationService
 {
@@ -10,6 +13,16 @@ namespace AuthorizationService
             return new List<ApiResource>
             {
                 new ApiResource("resourceApi", "API Application")
+            };
+        }
+
+        // scopes define the resources in your system
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
             };
         }
 
@@ -27,12 +40,36 @@ namespace AuthorizationService
                     // secret for authentication
                     ClientSecrets =
                     {
-                        new Secret("very secret".Sha256())
+                        new Secret("secret".Sha256())
                     },
 
                     AllowedScopes = { "resourceApi" }
+                },
+                // OpenID Connect authorization flow client (MVC)
+                new Client
+                {
+                    ClientId = "mvc",
+                    ClientName = "MVC Client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "resourceApi"
+                    }
                 }
             };
+        }
+
+        public static List<TestUser> GetTestUsers()
+        {
+            return TestUsers.Users;
         }
     }
 }

@@ -19,7 +19,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5002",
-      "launchUrl":  "http://localhost:5002/identity", 
+      "launchUrl":  "http://localhost:5002/identity/index", 
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
