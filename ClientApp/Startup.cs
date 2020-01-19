@@ -38,11 +38,17 @@ namespace ClientApp
                 {
                     options.SignInScheme = "Cookies";
                     options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
-                    options.ResponseType = "code";
+
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
+                    options.ResponseType = "code id_token";
+
                     options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.RequireHttpsMetadata = false;
+
+                    // request these scopes
+                    options.Scope.Add("resourceApi");
                 });
         }
 

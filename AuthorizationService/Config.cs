@@ -50,7 +50,7 @@ namespace AuthorizationService
                 {
                     ClientId = "mvc",
                     ClientName = "MVC Client",
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.Hybrid,
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
